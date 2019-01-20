@@ -6,7 +6,7 @@
  * Time: 5:44 PM
  */
 
-namespace Greentea\Core;
+namespace Greentea\Component;
 
 interface ReadMapper
 {

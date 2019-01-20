@@ -6,8 +6,7 @@
  * Time: 5:46 PM
  */
 
-namespace Greentea\Core;
-
+namespace Greentea\Component;
 
 interface WriteMapper
 {
