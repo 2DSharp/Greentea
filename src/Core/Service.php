@@ -8,13 +8,21 @@
 
 namespace Greentea\Core;
 
+use Greentea\Component\MapperFactoryInterface;
 use Greentea\Exception\InvalidServiceModeException;
 
 abstract class Service
 {
-    private $mode;
+    protected $mode;
+    protected $mapperFactory;
+
     public const MODE_READ = 0;
     public const MODE_WRITE = 1;
+
+    public function __construct(MapperFactoryInterface $factory)
+    {
+        $this->mapperFactory = $factory;
+    }
 
     public function setServiceMode(int $mode)
     {
@@ -22,19 +30,19 @@ abstract class Service
     }
 
     /**
-     * @param MapperProvider $provider
+     * @param string $classname
      * @return object
      * @throws InvalidServiceModeException
      */
-    protected function createMapper(MapperProvider $provider) : object
+    protected function createMapper(string $classname) : object
     {
         switch ($this->mode) {
 
             case self::MODE_READ:
-                return $provider->getReadMapper();
+                return $this->mapperFactory->createReadMapper($classname);
 
             case self::MODE_WRITE:
-                return $provider->getWriteMapper();
+                return $this->mapperFactory->createWriteMapper($classname);
 
             default:
                 throw new InvalidServiceModeException();
