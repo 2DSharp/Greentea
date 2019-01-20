@@ -11,5 +11,15 @@ namespace Greentea\Core;
 
 abstract class View
 {
+    protected function respond(Response $response, Request $request, $html)
+    {
+        $response->setContent($html);
+        $response->prepare($request);
+        return $response;
+    }
 
+    protected function getService(ServiceFactory $factory) : ReadService
+    {
+        return $factory->getReadService();
+    }
 }

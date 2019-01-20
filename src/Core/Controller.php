@@ -11,5 +11,8 @@ namespace Greentea\Core;
 
 abstract class Controller
 {
-
+    protected function getService(ServiceFactory $factory) : WriteService
+    {
+        return $factory->getWriteService();
+    }
 }
