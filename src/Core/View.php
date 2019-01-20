@@ -18,8 +18,8 @@ abstract class View
         return $response;
     }
 
-    protected function getService(ServiceFactory $factory) : ReadService
+    protected function prepareService(Service $service)
     {
-        return $factory->getReadService();
+       $service->setServiceMode(Service::MODE_READ);
     }
 }

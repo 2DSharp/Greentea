@@ -3,12 +3,12 @@
  * Created by PhpStorm.
  * User: dedipyaman
  * Date: 1/20/19
- * Time: 5:46 PM
+ * Time: 5:44 PM
  */
 
 namespace Greentea\Core;
 
-
-interface WriteService
+interface ReadMapper
 {
+    public function read($entity) : object;
 }

@@ -8,11 +8,10 @@
 
 namespace Greentea\Core;
 
-
 abstract class Controller
 {
-    protected function getService(ServiceFactory $factory) : WriteService
+    protected function prepareService(Service $service)
     {
-        return $factory->getWriteService();
+        $service->setServiceMode(Service::MODE_WRITE);
     }
 }
