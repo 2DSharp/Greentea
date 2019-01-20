@@ -1,0 +1,45 @@
+{
+  "name": "twodee/greentea",
+  "type": "library",
+  "homepage": "https://github.com/2dsharp/Greentea",
+  "license": "MIT",
+  "description": "Simple extensible PHP framework",
+  "keywords": ["framework", "MVC", "oop", "SOLID"],
+
+  "authors": [
+    {
+      "name": "Dedipyaman Das",
+      "email": "2d@twodee.me",
+      "role": "Developer"
+    }
+  ],
+
+  "autoload": {
+    "psr-4": { "Greentea\\": "src/" }
+  },
+
+  "autoload-dev": {
+    "psr-4": {
+      "Greentea\\UnitTest\\" : "tests/UnitTests/"
+    }
+  },
+  "require": {
+    "php": ">=7.2",
+    "ext-pdo": "*",
+    "psr/log": "1.*"
+  },
+  "require-dev": {
+    "ext-pdo_sqlite": "*",
+    "phpunit/phpunit": "^7",
+    "mockery/mockery": "^1.1"
+  },
+
+  "config": {
+    "platform": {
+      "php": "7.2.9"
+    },
+    "platform-dev": {
+      "php": "7.2.9"
+    }
+  }
+}
