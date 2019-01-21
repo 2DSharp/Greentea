@@ -28,10 +28,10 @@ class MapperFactory implements MapperFactoryInterface
      */
     public function createReadMapper(string $classname): ReadMapper
     {
+        if (!in_array(ReadMapper::class, class_implements($classname)))
+            throw new \RuntimeException("Object is not a correct read mapper.");
+
         $mapper = $this->createMapper($classname);
-        if (! ($mapper instanceof ReadMapper)) {
-            throw new \RuntimeException("Object not a correct read mapper.");
-        }
         return $mapper;
     }
 
@@ -41,11 +41,10 @@ class MapperFactory implements MapperFactoryInterface
      */
     public function createWriteMapper(string $classname): WriteMapper
     {
-        $mapper = $this->createMapper($classname);
-        if (! ($mapper instanceof WriteMapper)) {
-            throw new \RuntimeException("Object not a correct write mapper.");
-        }
+        if (!in_array(WriteMapper::class, class_implements($classname)))
+            throw new \RuntimeException("Object is not a correct write mapper.");
 
+        $mapper = $this->createMapper($classname);
         return $mapper;
     }
 
