@@ -8,6 +8,8 @@
 
 namespace Greentea\Core;
 
+use Auryn\InjectionException;
+use Auryn\Injector;
 use Greentea\Component\InjectorInterface;
 use Greentea\Component\RouteInterface;
 
@@ -17,16 +19,18 @@ abstract class AbstractApplication
     private $injector;
 
 
-    public function __construct(InjectorInterface $injector)
+    public function __construct(Injector $injector)
     {
         $this->injector = $injector;
     }
 
-    protected abstract function getRoute() : RouteInterface;
-
-    public function run($request) : void
+    /**
+     * @param $request
+     * @param RouteInterface $route
+     * @throws InjectionException
+     */
+    public function run($request, RouteInterface $route) : void
     {
-        $route = $this->getRoute();
         $method = $route->resolveMethod();
 
         $controller = $this->injector->make($route->resolveController());
@@ -34,7 +38,6 @@ abstract class AbstractApplication
 
         $view = $this->injector->make($route->resolveView());
         $this->runView($view, $request, $method);
-
     }
 
     private function runController(Controller $controller, $request, string $method) : void
