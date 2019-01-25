@@ -10,12 +10,11 @@ namespace Greentea\Core;
 
 use Auryn\InjectionException;
 use Auryn\Injector;
-use Greentea\Component\InjectorInterface;
 use Greentea\Component\RouteInterface;
+use Symfony\Component\HttpFoundation\Request;
 
-abstract class AbstractApplication
+final class Application
 {
-
     private $injector;
 
 
@@ -29,7 +28,7 @@ abstract class AbstractApplication
      * @param RouteInterface $route
      * @throws InjectionException
      */
-    public function run($request, RouteInterface $route) : void
+    public function run(Request $request, RouteInterface $route) : void
     {
         $method = $route->resolveMethod();
 
