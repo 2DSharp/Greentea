@@ -11,7 +11,7 @@ namespace Greentea\Core;
 use Auryn\InjectionException;
 use Auryn\Injector;
 use Greentea\Component\RouteInterface;
-use Symfony\Component\HttpFoundation\Request;
+use \Psr\Http\Message\ServerRequestInterface as Request;
 
 final class Application
 {
