@@ -11,6 +11,7 @@ namespace Greentea\Core;
 use Auryn\InjectionException;
 use Auryn\Injector;
 use Greentea\Component\RouteInterface;
+use Greentea\Exception\InvalidViewException;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
 final class Application
@@ -27,16 +28,26 @@ final class Application
      * @param $request
      * @param RouteInterface $route
      * @throws InjectionException
+     * @throws InvalidControllerException
+     * @throws InvalidViewException
      */
     public function run(Request $request, RouteInterface $route) : void
     {
         $method = $route->resolveMethod();
+        $controllerResource = $route->resolveController();
+        $viewResource = $route->resolveView();
 
-        $controller = $this->injector->make($route->resolveController());
-        $this->runController($controller, $request, $method);
+        if (!is_null($controllerResource) &&
+            ($controller = $this->injector->make($controllerResource)) instanceof Controller)
+            $this->runController($controller, $request, $method);
+        else
+            throw new InvalidControllerException();
 
-        $view = $this->injector->make($route->resolveView());
-        $this->runView($view, $request, $method);
+        if (!is_null($viewResource) &&
+            ($view = $this->injector->make($viewResource)) instanceof View)
+            $this->runView($view, $request, $method);
+        else
+            throw new InvalidViewException();
     }
 
     private function runController(Controller $controller, $request, string $method) : void
