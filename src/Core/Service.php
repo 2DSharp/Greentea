@@ -9,6 +9,7 @@
 namespace Greentea\Core;
 
 use Greentea\Component\MapperFactoryInterface;
+use Greentea\Exception\InvalidServiceCallerException;
 use Greentea\Exception\InvalidServiceModeException;
 
 abstract class Service
@@ -16,15 +17,37 @@ abstract class Service
     protected $mode;
     protected $mapperFactory;
 
-    public const MODE_READ = 0;
-    public const MODE_WRITE = 1;
+    private const MODE_READ = 0;
+    private const MODE_WRITE = 1;
 
     public function __construct(MapperFactoryInterface $factory)
     {
         $this->mapperFactory = $factory;
     }
 
-    public function setServiceMode(int $mode)
+    /**
+     * @param object $caller
+     * @throws InvalidServiceCallerException
+     */
+    public function bind(object $caller) : void
+    {
+        if ($caller instanceof Controller) {
+            $this->setServiceMode(self::MODE_READ);
+        }
+        else if ($caller instanceof View) {
+            $this->setServiceMode(self::MODE_WRITE);
+        }
+
+        else {
+            throw new InvalidServiceCallerException("The service caller isn't a controller or a view");
+        }
+    }
+
+    /**
+     * Set the service mode - READ or READWRITE
+     * @param int $mode
+     */
+    private function setServiceMode(int $mode)
     {
         $this->mode = $mode;
     }
