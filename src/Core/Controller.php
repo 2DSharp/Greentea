@@ -12,6 +12,6 @@ abstract class Controller
 {
     protected function prepareService(Service $service)
     {
-        $service->setServiceMode(Service::MODE_WRITE);
+        $service->bind($this);
     }
 }

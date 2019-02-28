@@ -15,17 +15,22 @@ use Twig_Environment;
 
 abstract class View
 {
-    protected function respond(Response $response, Request $request, $html)
+    protected function respond(Request $request, string $html)
     {
-        $response->setContent($html);
+        $response = new Response($html);
         $response->prepare($request);
 
         return $response;
     }
 
-    protected function prepareService(Service $service)
+    /**
+     * Subscrbe to a service to read data from the models
+     * @param Service $service
+     * @throws \Greentea\Exception\InvalidServiceCallerException
+     */
+    protected function subscribeTo(Service $service)
     {
-       $service->setServiceMode(Service::MODE_READ);
+       $service->bind($this);
     }
 
     /**
