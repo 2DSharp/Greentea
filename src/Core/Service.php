@@ -26,6 +26,7 @@ abstract class Service
     }
 
     /**
+     * Bind the caller to the service to get the appropriate permissions based on the type of the caller
      * @param object $caller
      * @throws InvalidServiceCallerException
      */
@@ -44,7 +45,7 @@ abstract class Service
     }
 
     /**
-     * Set the service mode - READ or READWRITE
+     * Set the READ or READWRITE permission
      * @param int $mode
      */
     private function setServiceMode(int $mode)

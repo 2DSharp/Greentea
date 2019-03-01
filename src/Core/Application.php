@@ -37,17 +37,19 @@ final class Application
         $controllerResource = $route->resolveController();
         $viewResource = $route->resolveView();
 
-        if (!is_null($controllerResource) &&
-            ($controller = $this->injector->make($controllerResource)) instanceof Controller)
-            $this->runController($controller, $request, $method);
-        else
-            throw new InvalidControllerException();
+        if (!is_null($controllerResource)) {
+            if (($controller = $this->injector->make($controllerResource)) instanceof Controller)
+                $this->runController($controller, $request, $method);
+            else
+                throw new InvalidControllerException();
+        }
 
-        if (!is_null($viewResource) &&
-            ($view = $this->injector->make($viewResource)) instanceof View)
-            $this->runView($view, $request, $method);
-        else
-            throw new InvalidViewException();
+        if (!is_null($viewResource)) {
+            if (($view = $this->injector->make($viewResource)) instanceof View)
+                $this->runView($view, $request, $method);
+            else
+                throw new InvalidViewException();
+        }
     }
 
     private function runController(Controller $controller, $request, string $method) : void
