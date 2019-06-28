@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dedipyaman
- * Date: 1/20/19
- * Time: 1:24 PM
- */
 
 namespace Greentea\Core;
 
@@ -12,12 +6,12 @@ use Auryn\InjectionException;
 use Auryn\Injector;
 use Greentea\Component\RouteInterface;
 use Greentea\Exception\InvalidViewException;
-use \Psr\Http\Message\ServerRequestInterface as Request;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class Application
 {
     private $injector;
-
 
     public function __construct(Injector $injector)
     {
@@ -62,6 +56,9 @@ final class Application
     private function runView(View $view, $request, string $method) : void
     {
         if (method_exists($view, $method)) {
+            /**
+             * @var Response $response
+             */
             $response = $view->{$method}($request);
             $response->send();
         }

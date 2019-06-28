@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dedipyaman
- * Date: 1/21/19
- * Time: 3:09 AM
- */
 
 namespace Greentea\Factory;
 
