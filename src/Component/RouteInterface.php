@@ -11,7 +11,7 @@ namespace Greentea\Component;
 
 interface RouteInterface
 {
-    public function resolveController() : ?string;
-    public function resolveView() : ?string;
+    public function resolveController(string $controllerNamespace) : ?string;
+    public function resolveView(string $viewNamespace) : ?string;
     public function resolveMethod() : string;
 }
