@@ -29,13 +29,14 @@ final class Application
         $controllerResource = $route->resolveController();
         $viewResource = $route->resolveView();
 
-        $controller = $this->injector->make($controllerResource);
-        $this->runController($controller, $request, $method);
-
-        $view = $this->injector->make($viewResource);
-        $this->runView($view, $request, $method);
-
-
+        if (!is_null($controllerResource)) {
+            $controller = $this->injector->make($controllerResource);
+            $this->runController($controller, $request, $method);
+        }
+        if (!is_null($viewResource)) {
+            $view = $this->injector->make($viewResource);
+            $this->runView($view, $request, $method);
+        }
     }
 
     private function runController(Controller $controller, $request, string $method) : void
