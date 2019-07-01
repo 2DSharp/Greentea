@@ -22,8 +22,6 @@ final class Application
      * @param $request
      * @param RouteInterface $route
      * @throws InjectionException
-     * @throws InvalidControllerException
-     * @throws InvalidViewException
      */
     public function run(Request $request, RouteInterface $route) : void
     {
