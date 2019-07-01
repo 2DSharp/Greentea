@@ -29,11 +29,11 @@ final class Application
         $controllerResource = $route->resolveController();
         $viewResource = $route->resolveView();
 
-        if (!is_null($controllerResource)) {
+        if (method_exists($controllerResource, $method)) {
             $controller = $this->injector->make($controllerResource);
             $this->runController($controller, $request, $method);
         }
-        if (!is_null($viewResource)) {
+        if (method_exists($viewResource, $method)) {
             $view = $this->injector->make($viewResource);
             $this->runView($view, $request, $method);
         }
@@ -41,19 +41,15 @@ final class Application
 
     private function runController(Controller $controller, $request, string $method) : void
     {
-        if (method_exists($controller, $method)) {
-            $controller->{$method}($request);
-        }
+        $controller->{$method}($request);
     }
 
     private function runView(View $view, $request, string $method) : void
     {
-        if (method_exists($view, $method)) {
-            /**
-             * @var Response $response
-             */
-            $response = $view->{$method}($request);
-            $response->send();
-        }
+        /**
+         * @var Response $response
+         */
+        $response = $view->{$method}($request);
+        $response->send();
     }
 }
