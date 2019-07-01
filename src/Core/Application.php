@@ -39,12 +39,12 @@ final class Application
         }
     }
 
-    private function runController(Controller $controller, $request, string $method) : void
+    private function runController($controller, $request, string $method) : void
     {
         $controller->{$method}($request);
     }
 
-    private function runView(View $view, $request, string $method) : void
+    private function runView($view, $request, string $method) : void
     {
         /**
          * @var Response $response
