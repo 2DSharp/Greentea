@@ -45,7 +45,7 @@ final class Application
         }
 
         if (!$exists)
-            throw new NoHandlerSpecifiedException();
+            throw new NoHandlerSpecifiedException($controllerResource, $viewResource, $method);
     }
 
     private function runController($controller, $request, string $method) : void

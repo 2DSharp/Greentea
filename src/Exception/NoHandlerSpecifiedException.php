@@ -17,7 +17,7 @@ class NoHandlerSpecifiedException extends \Exception
 {
     public function __construct($controller, $view, $method)
     {
-        parent::__construct("Could not find handler specified for the action on: " . $controller . " " . $view .
-        " " . $method);
+        parent::__construct("Could not find handler specified for this action. Controller: " . $controller . ", View: " . $view .
+        " Method:" . $method);
     }
 }
