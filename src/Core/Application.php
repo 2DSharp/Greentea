@@ -22,6 +22,7 @@ final class Application
      * @param RouteInterface $route
      * @throws InjectionException
      * @throws NoHandlerSpecifiedException
+     * @throws \Greentea\Exception\TemplatingException
      */
     public function run(Request $request, RouteInterface $route) : void
     {
