@@ -5,10 +5,8 @@ namespace Greentea\Core;
 use Auryn\InjectionException;
 use Auryn\Injector;
 use Greentea\Component\RouteInterface;
-use Greentea\Exception\InvalidViewException;
 use Greentea\Exception\NoHandlerSpecifiedException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 final class Application
 {
@@ -34,13 +32,19 @@ final class Application
         $exists = false;
 
         if (method_exists($controllerResource, $method)) {
+            /**
+             * @var Controller $controller
+             */
             $controller = $this->injector->make($controllerResource);
-            $this->runController($controller, $request, $method);
+            $controller->handleRequest($request, $method);
             $exists = true;
         }
         if (method_exists($viewResource, $method)) {
+            /**
+             * @var View $view
+             */
             $view = $this->injector->make($viewResource);
-            $this->runView($view, $request, $method);
+            $view->createResponse($request, $method)->send();
             $exists = true;
         }
 
@@ -48,17 +52,4 @@ final class Application
             throw new NoHandlerSpecifiedException($controllerResource, $viewResource, $method);
     }
 
-    private function runController($controller, $request, string $method) : void
-    {
-        $controller->{$method}($request);
-    }
-
-    private function runView($view, $request, string $method) : void
-    {
-        /**
-         * @var Response $response
-         */
-        $response = $view->{$method}($request);
-        $response->send();
-    }
 }
