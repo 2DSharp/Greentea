@@ -15,5 +15,9 @@ use Throwable;
 
 class NoHandlerSpecifiedException extends \Exception
 {
-    //TODO: Add target function/class info
+    public function __construct($controller, $view, $method)
+    {
+        parent::__construct("Could not find handler specified for the action on: " . $controller . " " . $view .
+        " " . $method);
+    }
 }
