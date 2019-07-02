@@ -2,10 +2,15 @@
 
 namespace Greentea\Core;
 
-abstract class Controller
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * Interface Controller
+ * A controller is responsible for handling an incoming request and updating the model layer.
+ * Delegate the specific functionality to the private methods.
+ * @package Greentea\Core
+ */
+interface Controller
 {
-    protected function prepareService(Service $service)
-    {
-        $service->bind($this);
-    }
+    public function handleRequest(Request $request, string $method);
 }
