@@ -4,7 +4,7 @@ namespace Greentea\Core;
 
 use Auryn\InjectionException;
 use Auryn\Injector;
-use Greentea\Component\RouteInterface;
+use Greentea\Component\RouteVOInterface;
 use Greentea\Exception\NoHandlerSpecifiedException;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,12 +19,12 @@ final class Application
 
     /**
      * @param $request
-     * @param RouteInterface $route
+     * @param RouteVOInterface $route
      * @throws InjectionException
      * @throws NoHandlerSpecifiedException
      * @throws \Greentea\Exception\TemplatingException
      */
-    public function run(Request $request, RouteInterface $route) : void
+    public function run(Request $request, RouteVOInterface $route): void
     {
         $method = $route->resolveMethod();
         $controllerResource = $route->resolveController();
