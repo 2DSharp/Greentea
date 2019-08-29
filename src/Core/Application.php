@@ -37,7 +37,7 @@ final class Application
              * @var Controller $controller
              */
             $controller = $this->injector->make($controllerResource);
-            $controller->handleRequest($request, $method);
+            $dto = $controller->handleRequest($request, $method);
             $exists = true;
         }
         if (method_exists($viewResource, $method)) {
@@ -45,7 +45,11 @@ final class Application
              * @var View $view
              */
             $view = $this->injector->make($viewResource);
-            $view->createResponse($request, $method)->send();
+            if (isset($dto))
+                $view->createResponse($request, $method, $dto)->send();
+            else
+                $view->createResponse($request, $method)->send();
+
             $exists = true;
         }
 

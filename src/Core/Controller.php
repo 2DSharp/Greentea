@@ -12,5 +12,5 @@ use Symfony\Component\HttpFoundation\Request;
  */
 interface Controller
 {
-    public function handleRequest(Request $request, string $method): void;
+    public function handleRequest(Request $request, string $method);
 }

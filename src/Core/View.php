@@ -2,7 +2,6 @@
 
 namespace Greentea\Core;
 
-use Greentea\Exception\TemplatingException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,8 +17,8 @@ interface View
     /**
      * @param Request $request
      * @param string $method
+     * @param null $event
      * @return Response
-     * @throws TemplatingException
      */
-    public function createResponse(Request $request, string $method) : Response;
+    public function createResponse(Request $request, string $method, $event = null): Response;
 }
